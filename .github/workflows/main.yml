@@ -1,0 +1,17 @@
+name: CI
+on: [push]
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@master
+    # https://github.com/actions/setup-dotnet
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.0.100'
+    - name: Run Restore
+      run: dotnet restore
+    - name: Run Build
+      run: dotnet build
+    - name: Run Tests
+      run: dotnet test JsonFlatFileDataStore.Test/JsonFlatFileDataStore.Test.csproj
